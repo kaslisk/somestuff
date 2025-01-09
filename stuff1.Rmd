@@ -1,0 +1,33 @@
+---
+title: "something"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = F)
+```
+
+Suppose n students are called down
+Assuming nobody takes more than 10 tries (that would be embarrasing)
+```{r}
+n = 10000
+data <- sample.int(10, n, replace = TRUE)
+#MLE for p = n/sum(ki) = 1/sample mean, where ki is the observation for each trial
+p_est <- n/sum(data)
+p_est
+
+```
+Bias and SE of p_est
+
+Bias = E(p_est) - p = E(n/sum(ki)) - p.
+By Jensen's Inequality, p_est is biased.
+Biasness can be estimated with 2nd degree Taylor expansion.
+p_est is consistent. Both bias and SE decreases with n.
+
+
+```{r}
+simulation <- rgeom(100000, p_est)
+mean(simulation)
+```
+
+
